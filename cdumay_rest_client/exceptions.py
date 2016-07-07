@@ -42,7 +42,7 @@ class HTTPExceptionValidator(Schema):
     @post_dump
     def json_check(self, data):
         try:
-            json.dump(data)
+            json.dumps(data)
             return data
         except Exception as exc:
             return dict(error="Cannot serialize extra: %s" % str(exc))
