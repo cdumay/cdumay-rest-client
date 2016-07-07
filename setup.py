@@ -6,7 +6,7 @@
 
 """
 
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='cdumay-rest-client',
@@ -19,8 +19,9 @@ setup(
     author_email='cedric.dumay@gmail.com',
     url='https://github.com/cdumay/cdumay-rest-client',
     license='Apache License',
-    py_modules=['cdumay_rest_client'],
     include_package_data=True,
     zip_safe=True,
     install_requires=open('requirements.txt', 'r').readlines(),
+    packages=find_packages('src'),
+    package_dir={'': 'src'},
 )
