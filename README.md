@@ -37,7 +37,7 @@ to serialize exceptions:
     >>>    print(client.do_request(method="GET", path="/me"))
     >>> except HTTPException as exc:
     >>>    print(HTTPExceptionValidator().dump(exc).data)
-    
+    {'code': 404, 'message': 'Not Found', 'extra': {}}
 ```
 
 ## License
