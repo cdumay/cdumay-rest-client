@@ -1,8 +1,6 @@
 language: python
 python:
-- 2.6
 - 2.7
-- 3.3
 - 3.4
 - 3.5
 script:
@@ -14,5 +12,5 @@ deploy:
     secure: pbhIexEuQUP3NpftOAr3PmkPQr46IcVb1+7JDhxt+Lvpzvtc2QfP0ZNXywPtE78THonIuThbjP6+xW1j1eHl34y3C22v/o0vykVmU5mhm8xYkzsNcxbOs2HW745V8iliMGAVcJf+QD8cG+X3Afqy6j58FRQKRf7q7IpIaV658sGKvYT7JB0lOrbtgsXmp1C4znE7MECgMbA2RB1Mzvkx1807WNqXtd2Di5TA1V6J7b5DCgrrGTUE6pOoYmpzp+ypHYDTD/b4o12tH3T+sd1AXSsdUO8x/cnVc0/ZucvbyRYOsImz3kHuMMzhxl+3EFVmgctey8K2Pi9f8Ix7+dyT76LEDKQ9y7uUp0sgWURp1m+MfqhokXG41spghlWXIzt5AMfiZaB/a/NOmLo0Q8J7Pwktr6a6auD1W8DzYp1Yvb8A3juG2ESD7ZhUeeZnz7HUD8tO3+Pn0y5MlHJqXGhMpULwUxErK7s5ed4khsJDnaf7mloRyI/T0Eg5w7J4w9zNWClHuMGmaWwsucm+RmyNka/kC5AXxSuAZrA1DkiR/X0GjYnGUss42RqVFytl7V/H2F1jGVs3kvrLEqoxXQkHNBMjIqNF5evmZ1mY6tK9B31LPNjlVasEuAftcA7pB05PKGy8WpSMZJZkpppswY0rkGPfFwZo/3UJhMoGgk/Qkuw=
   on:
     tags: true
-    distributions: bdist_wheel sdist
+    distributions: bdist_wheel
     repo: cdumay/cdumay-rest-client
