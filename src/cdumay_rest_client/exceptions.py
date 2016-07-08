@@ -20,6 +20,7 @@ class HTTPException(Exception):
         self.message = message
         self.extra = extra if extra else dict()
         if debug is True:
+            # noinspection PyBroadException
             try:
                 self.extra['stack'] = traceback.format_exc()
             except:
@@ -395,6 +396,7 @@ def from_status(status, message=None, extra=None):
         )
 
 
+# noinspection PyBroadException
 def from_response(response, url):
     try:
         data = response.json()

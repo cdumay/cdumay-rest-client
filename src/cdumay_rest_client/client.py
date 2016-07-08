@@ -30,8 +30,8 @@ class RESTClient(object):
         return 'Connection: %s' % self.server
 
     def do_request(self, method, path, params=None, data=None):
+        url = ''.join([self.server.rstrip('/'), path])
         try:
-            url = ''.join([self.server.rstrip('/'), path])
             response = requests.request(
                 method=method,
                 url=url,
@@ -53,6 +53,7 @@ class RESTClient(object):
         if response.status_code >= 300:
             raise from_response(response, url)
 
+        # noinspection PyBroadException
         try:
             return response.json()
         except:
