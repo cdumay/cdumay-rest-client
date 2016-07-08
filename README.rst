@@ -1,5 +1,5 @@
 .. image:: https://travis-ci.org/cdumay/cdumay-rest-client.svg?branch=master
-:target: https://travis-ci.org/cdumay/cdumay-rest-client
+    :target: https://travis-ci.org/cdumay/cdumay-rest-client
 
 cdumay-rest-client
 ==================
@@ -16,7 +16,7 @@ First, install cdumay-rest-client using
 
 Next, add a `RESTClient` instance to your code:
 
-.. highlight:: python
+.. highlight::
 
     >>> from cdumay_rest_client.client import RESTClient
     >>> 
@@ -30,7 +30,7 @@ Exception
 You can use `marshmallow <https://marshmallow.readthedocs.io/en/latest>`_
 to serialize exceptions:
 
-.. highlight:: python
+.. highlight::
 
     >>> from cdumay_rest_client.client import RESTClient
     >>> from cdumay_rest_client.exceptions import HTTPException, HTTPExceptionValidator
