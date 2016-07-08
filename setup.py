@@ -12,7 +12,7 @@ setup(
     name='cdumay-rest-client',
     version=open('VERSION', 'r').read().strip(),
     description="HTTP client",
-    long_description=open('README.md', 'r').read().strip(),
+    long_description=open('README.rst', 'r').read().strip(),
     classifiers=["Programming Language :: Python"],
     keywords='',
     author='Cedric DUMAY',
