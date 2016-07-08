@@ -16,13 +16,13 @@ First, install cdumay-rest-client using
 
 Next, add a `RESTClient` instance to your code:
 
-.. code-block::
+.. code-block:: python
 
     >>> from cdumay_rest_client.client import RESTClient
     >>> 
     >>> client = RESTClient(server="http://jsonplaceholder.typicode.com")
     >>> print(client.do_request(method="GET", path="/posts/1"))
-    {'body': 'quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto', 'userId': 1, 'title': 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit', 'id': 1}
+    {'body': 'quia et suscipit\nsuscipit recusan[...]', 'userId': 1, 'title': 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit', 'id': 1}
 
 Exception
 ---------
@@ -30,7 +30,7 @@ Exception
 You can use `marshmallow <https://marshmallow.readthedocs.io/en/latest>`_
 to serialize exceptions:
 
-.. code-block::
+.. code-block:: python
 
     >>> from cdumay_rest_client.client import RESTClient
     >>> from cdumay_rest_client.exceptions import HTTPException, HTTPExceptionValidator
