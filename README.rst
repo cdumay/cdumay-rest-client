@@ -16,7 +16,7 @@ First, install cdumay-rest-client using
 
 Next, add a `RESTClient` instance to your code:
 
-.. highlight::
+.. code-block::
 
     >>> from cdumay_rest_client.client import RESTClient
     >>> 
@@ -30,7 +30,7 @@ Exception
 You can use `marshmallow <https://marshmallow.readthedocs.io/en/latest>`_
 to serialize exceptions:
 
-.. highlight::
+.. code-block::
 
     >>> from cdumay_rest_client.client import RESTClient
     >>> from cdumay_rest_client.exceptions import HTTPException, HTTPExceptionValidator
