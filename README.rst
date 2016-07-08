@@ -18,11 +18,29 @@ Next, add a `RESTClient` instance to your code:
 
 .. code-block:: python
 
-    >>> from cdumay_rest_client.client import RESTClient
-    >>> 
-    >>> client = RESTClient(server="http://jsonplaceholder.typicode.com")
-    >>> print(client.do_request(method="GET", path="/posts/1"))
-    {'body': 'quia et suscipit\nsuscipit recusan[...]', 'userId': 1, 'title': 'sunt aut facere repellat provident occaecati excepturi optio reprehenderit', 'id': 1}
+    import json
+    import sys
+    from cdumay_rest_client.client import RESTClient
+
+    client = RESTClient(server="http://jsonplaceholder.typicode.com")
+    json.dump(
+        client.do_request(method="GET", path="/posts/1"),
+        sys.stdout,
+        sort_keys=True,
+        indent=4,
+        separators=(',', ': ')
+    )
+
+Result:
+
+.. code-block:: python
+
+    {
+    "body": "quia et suscipit\nsuscipit recusandae [...]",
+    "id": 1,
+    "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+    "userId": 1
+    }
 
 Exception
 ---------
@@ -32,15 +50,28 @@ to serialize exceptions:
 
 .. code-block:: python
 
-    >>> from cdumay_rest_client.client import RESTClient
-    >>> from cdumay_rest_client.exceptions import HTTPException, HTTPExceptionValidator
-    >>> 
-    >>> client = RESTClient(server="http://jsonplaceholder.typicode.com")
-    >>> try:
-    >>>    print(client.do_request(method="GET", path="/me"))
-    >>> except HTTPException as exc:
-    >>>    print(HTTPExceptionValidator().dump(exc).data)
-    {'code': 404, 'message': 'Not Found', 'extra': {}}
+    import json
+    import sys
+    from cdumay_rest_client.client import RESTClient
+    from cdumay_rest_client.exceptions import HTTPException, HTTPExceptionValidator
+
+    try:
+        client = RESTClient(server="http://jsonplaceholder.typicode.com")
+        data = client.do_request(method="GET", path="/me")
+    except HTTPException as exc:
+        data = HTTPExceptionValidator().dump(exc).data
+
+    json.dump(data, sys.stdout, sort_keys=True, indent=4, separators=(',', ': '))
+
+Result:
+
+.. code-block:: python
+
+    {
+        "code": 404,
+        "extra": {},
+        "message": "Not Found"
+    }
 
 License
 -------
