@@ -24,4 +24,5 @@ setup(
     install_requires=open('requirements.txt', 'r').readlines(),
     packages=find_packages('src'),
     package_dir={'': 'src'},
+    test_suite="cdumay_rest_client.tests",
 )

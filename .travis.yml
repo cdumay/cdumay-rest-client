@@ -6,8 +6,7 @@ python:
 - 3.4
 - 3.5
 script:
-- python setup.py sdist
-- python setup.py bdist_wheel
+- python setup.py test
 deploy:
   provider: pypi
   user: cdumay
