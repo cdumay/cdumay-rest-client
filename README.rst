@@ -18,8 +18,7 @@ Next, add a `RESTClient` instance to your code:
 
 .. code-block:: python
 
-    import json
-    import sys
+    import json, sys
     from cdumay_rest_client.client import RESTClient
 
     client = RESTClient(server="http://jsonplaceholder.typicode.com")
@@ -36,10 +35,10 @@ Result:
 .. code-block:: python
 
     {
-    "body": "quia et suscipit\nsuscipit recusandae [...]",
-    "id": 1,
-    "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
-    "userId": 1
+        "body": "quia et suscipit\nsuscipit recusandae [...]",
+        "id": 1,
+        "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
+        "userId": 1
     }
 
 Exception
@@ -50,8 +49,7 @@ to serialize exceptions:
 
 .. code-block:: python
 
-    import json
-    import sys
+    import json, sys
     from cdumay_rest_client.client import RESTClient
     from cdumay_rest_client.exceptions import HTTPException, HTTPExceptionValidator
 
