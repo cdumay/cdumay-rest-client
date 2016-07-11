@@ -1,2 +1,3 @@
-requests[security]<2.5.0
+requests[security]
+ndg-httpsclient
 marshmallow
