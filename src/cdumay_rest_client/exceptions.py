@@ -12,7 +12,7 @@ from marshmallow import Schema, fields, post_dump
 
 
 class HTTPException(Exception):
-    """ThotException"""
+    """HTTPException"""
 
     def __init__(self, code, message, extra=None, debug=False):
         Exception.__init__(self, code, message)
