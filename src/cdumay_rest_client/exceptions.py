@@ -403,7 +403,7 @@ def from_response(response, url):
         code = data.get('code', response.status_code)
         if code in HTTP_STATUS_CODES:
             return HTTP_STATUS_CODES[code](
-                data.get('message', None), data.get('extra', None)
+                data.get('message', None), data.get('extra', data)
             )
         else:
             return HTTPException(**data)
