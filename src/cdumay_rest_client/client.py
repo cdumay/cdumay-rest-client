@@ -29,8 +29,13 @@ class RESTClient(object):
     def __repr__(self):
         return 'Connection: %s' % self.server
 
-    def do_request(self, method, path, params=None, data=None):
+    def do_request(self, method, path, params=None, data=None, headers=None):
         url = ''.join([self.server.rstrip('/'), path])
+
+        if not headers:
+            headers = dict()
+        headers.update(self.headers)
+
         try:
             response = requests.request(
                 method=method,
@@ -38,7 +43,7 @@ class RESTClient(object):
                 params=params,
                 data=json.dumps(data) if data else None,
                 auth=self.auth,
-                headers=self.headers,
+                headers=headers,
                 timeout=self.timeout
             )
         except requests.exceptions.RequestException as e:
