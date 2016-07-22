@@ -73,6 +73,18 @@ class Accepted(HTTPException):
         )
 
 
+class NoContent(HTTPException):
+    """204: No Content"""
+
+    def __init__(self, message=None, extra=None):
+        HTTPException.__init__(
+            self,
+            204,
+            message if message else "No Content",
+            extra
+        )
+
+
 class NotModified(HTTPException):
     """304: Not Modified"""
 
