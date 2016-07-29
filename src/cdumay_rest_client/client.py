@@ -23,7 +23,13 @@ class RESTClient(object):
             password=None):
         self.server = server
         self.timeout = timeout
-        self.headers = headers if headers else dict()
+        self.headers = {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        }
+        if headers:
+            self.headers.update(headers)
+
         self.auth = (username, password) if username and password else None
 
     def __repr__(self):
@@ -31,11 +37,9 @@ class RESTClient(object):
 
     def do_request(self, method, path, params=None, data=None, headers=None):
         url = ''.join([self.server.rstrip('/'), path])
-
         if not headers:
             headers = dict()
         headers.update(self.headers)
-
         try:
             response = requests.request(
                 method=method,
