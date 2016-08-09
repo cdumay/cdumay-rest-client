@@ -33,6 +33,9 @@ class HTTPException(Exception):
             self.message
         )
 
+    def __str__(self):
+        return "%s: %s (extra=%s)" % (self.code, self.message, self.extra)
+
 
 class HTTPExceptionValidator(Schema):
     """"""
