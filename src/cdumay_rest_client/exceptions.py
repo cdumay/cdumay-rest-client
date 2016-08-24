@@ -423,8 +423,8 @@ def from_response(response, url):
         else:
             return HTTPException(**data)
     except:
-        return HTTPException(
-            code=response.status_code,
-            message=response.text,
+        return from_status(
+            response.status_code,
+            response.text,
             extra=dict(url=url, response=response.text)
         )
