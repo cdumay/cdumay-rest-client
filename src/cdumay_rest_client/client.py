@@ -20,7 +20,7 @@ class RESTClient(object):
 
     def __init__(
             self, server, timeout=10, headers=None, username=None,
-            password=None):
+            password=None, ssl_verify=True):
         self.server = server
         self.timeout = timeout
         self.headers = {
@@ -31,6 +31,7 @@ class RESTClient(object):
             self.headers.update(headers)
 
         self.auth = (username, password) if username and password else None
+        self.ssl_verify = ssl_verify
 
     def __repr__(self):
         return 'Connection: %s' % self.server
@@ -48,7 +49,8 @@ class RESTClient(object):
                 data=json.dumps(data) if data else None,
                 auth=self.auth,
                 headers=headers,
-                timeout=self.timeout
+                timeout=self.timeout,
+                verify=self.ssl_verify
             )
         except requests.exceptions.RequestException as e:
             raise InternalServerError(
