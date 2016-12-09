@@ -36,13 +36,17 @@ class RESTClient(object):
     def __repr__(self):
         return 'Connection: %s' % self.server
 
+    @staticmethod
+    def _request_wrapper(**kwargs):
+        return requests.request(**kwargs)
+
     def do_request(self, method, path, params=None, data=None, headers=None):
         url = ''.join([self.server.rstrip('/'), path])
         if not headers:
             headers = dict()
         headers.update(self.headers)
         try:
-            response = requests.request(
+            response = self._request_wrapper(
                 method=method,
                 url=url,
                 params=params,
