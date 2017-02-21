@@ -40,7 +40,7 @@ class RESTClient(object):
     def _request_wrapper(**kwargs):
         return requests.request(**kwargs)
 
-    def do_request(self, method, path, params=None, data=None, headers=None):
+    def do_request(self, method, path, params=None, data=None, headers=None, timeout=None):
         url = ''.join([self.server.rstrip('/'), path])
         if not headers:
             headers = dict()
@@ -53,7 +53,7 @@ class RESTClient(object):
                 data=json.dumps(data) if data else None,
                 auth=self.auth,
                 headers=headers,
-                timeout=self.timeout,
+                timeout=timeout or self.timeout,
                 verify=self.ssl_verify
             )
         except requests.exceptions.RequestException as e:
