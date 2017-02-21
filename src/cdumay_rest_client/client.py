@@ -40,7 +40,8 @@ class RESTClient(object):
     def _request_wrapper(**kwargs):
         return requests.request(**kwargs)
 
-    def do_request(self, method, path, params=None, data=None, headers=None, timeout=None):
+    def do_request(self, method, path, params=None, data=None, headers=None,
+                   timeout=None):
         url = ''.join([self.server.rstrip('/'), path])
         if not headers:
             headers = dict()
