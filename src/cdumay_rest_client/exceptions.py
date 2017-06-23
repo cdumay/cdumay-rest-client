@@ -19,6 +19,7 @@ class HTTPException(Exception):
         self.code = code
         self.message = message
         self.extra = extra if extra else dict()
+        self.msgid = self.extra.get('msgid', None)
         if debug is True:
             # noinspection PyBroadException
             try:
@@ -41,6 +42,7 @@ class HTTPExceptionValidator(Schema):
     """"""
     code = fields.Integer(required=True)
     message = fields.String(required=True)
+    msgid = fields.String()
     extra = fields.Dict()
 
     @post_dump
