@@ -42,7 +42,7 @@ class HTTPExceptionValidator(Schema):
     """"""
     code = fields.Integer(required=True)
     message = fields.String(required=True)
-    msgid = fields.String()
+    msgid = fields.String(dump_to="msg-id")
     extra = fields.Dict()
 
     @post_dump
