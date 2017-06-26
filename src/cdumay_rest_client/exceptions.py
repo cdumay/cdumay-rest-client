@@ -19,7 +19,7 @@ class HTTPException(Exception):
         self.code = code
         self.message = message
         self.extra = extra if extra else dict()
-        self.msgid = self.extra.get('msgid', None)
+        self.msgid = self.extra.pop('msgid', None)
         if debug is True:
             # noinspection PyBroadException
             try:
