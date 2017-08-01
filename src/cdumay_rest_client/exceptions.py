@@ -6,9 +6,12 @@
 
 
 """
+import logging
 import json
 import traceback
 from marshmallow import Schema, fields, post_dump
+
+logger = logging.getLogger(__name__)
 
 
 class HTTPException(Exception):
@@ -51,7 +54,7 @@ class HTTPExceptionValidator(Schema):
             json.dumps(data)
             return data
         except Exception as exc:
-            return dict(error="Cannot serialize extra: %s" % str(exc))
+            logger.error("Cannot serialize extra: {}".format(exc))
 
 
 class Created(HTTPException):

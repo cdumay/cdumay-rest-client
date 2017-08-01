@@ -5,6 +5,8 @@
 .. codeauthor:: Cédric Dumay <cedric.dumay@gmail.com>
 
 """
+import time
+import logging
 import json
 
 import requests
@@ -13,6 +15,8 @@ import requests.exceptions
 from cdumay_rest_client.exceptions import InternalServerError
 from cdumay_rest_client.exceptions import MisdirectedRequest
 from cdumay_rest_client.exceptions import from_response
+
+logger = logging.getLogger(__name__)
 
 
 class RESTClient(object):
@@ -46,6 +50,8 @@ class RESTClient(object):
         if not headers:
             headers = dict()
         headers.update(self.headers)
+        logger.debug("[{}] - {}".format(method, url))
+        request_start_time = time.time()
         try:
             response = self._request_wrapper(
                 method=method,
@@ -62,10 +68,18 @@ class RESTClient(object):
                 message=getattr(e, 'message', "Internal Server Error"),
                 extra=dict(url=url)
             )
+        finally:
+            execution_time = time.time() - request_start_time
 
         if response is None:
             raise MisdirectedRequest(extra=dict(url=url))
 
+        logger.info(
+            "[{}] - {} - {}: {} - {}s".format(
+                method, url, response.status_code, len(response.content),
+                round(execution_time, 3)
+            )
+        )
         if response.status_code >= 300:
             raise from_response(response, url)
 
