@@ -76,8 +76,8 @@ class RESTClient(object):
 
         logger.info(
             "[{}] - {} - {}: {} - {}s".format(
-                method, url, response.status_code, len(response.content),
-                round(execution_time, 3)
+                method, url, response.status_code,
+                len(getattr(response, 'content', "")), round(execution_time, 3)
             )
         )
         if response.status_code >= 300:
