@@ -78,7 +78,8 @@ class RESTClient(object):
             "[{}] - {} - {}: {} - {}s".format(
                 method, url, response.status_code,
                 len(getattr(response, 'content', "")), round(execution_time, 3)
-            )
+            ),
+            extra=dict(exec_time=execution_time)
         )
         if response.status_code >= 300:
             raise from_response(response, url)
