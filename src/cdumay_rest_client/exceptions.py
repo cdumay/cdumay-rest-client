@@ -17,18 +17,16 @@ logger = logging.getLogger(__name__)
 class HTTPException(Exception):
     """HTTPException"""
 
-    def __init__(self, code, message, extra=None, debug=False):
+    def __init__(self, code, message, extra=None):
         Exception.__init__(self, code, message)
         self.code = code
         self.message = message
         self.extra = extra if extra else dict()
         self.msgid = self.extra.pop('msgid', None)
-        if debug is True:
-            # noinspection PyBroadException
-            try:
-                self.extra['stack'] = traceback.format_exc()
-            except:
-                pass
+        try:
+            self.extra['stack'] = traceback.format_exc()
+        except:
+            pass
 
     def __repr__(self):
         return "%s<code=%s, message=%s>" % (
