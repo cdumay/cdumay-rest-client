@@ -81,7 +81,7 @@ class RESTClient(object):
             ),
             extra=dict(
                 exec_time=execution_time,
-                status_code_int=response.status_code,
+                status_code=response.status_code,
                 dst_host=self.server
             )
         )
