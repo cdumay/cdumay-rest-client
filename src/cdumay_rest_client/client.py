@@ -79,7 +79,11 @@ class RESTClient(object):
                 method, url, response.status_code,
                 len(getattr(response, 'content', "")), round(execution_time, 3)
             ),
-            extra=dict(exec_time=execution_time)
+            extra=dict(
+                exec_time=execution_time,
+                status_code_int=response.status_code,
+                dst_host=self.server
+            )
         )
         if response.status_code >= 300:
             raise from_response(response, url)
