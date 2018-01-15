@@ -52,6 +52,9 @@ class RESTClient(object):
         headers.update(self.headers)
         logger.debug("[{}] - {}".format(method, url))
         request_start_time = time.time()
+
+        extra = dict(url=url, server=self.server, method=method)
+
         try:
             response = self._request_wrapper(
                 method=method,
@@ -66,13 +69,13 @@ class RESTClient(object):
         except requests.exceptions.RequestException as e:
             raise InternalServerError(
                 message=getattr(e, 'message', "Internal Server Error"),
-                extra=dict(url=url)
+                extra=extra
             )
         finally:
             execution_time = time.time() - request_start_time
 
         if response is None:
-            raise MisdirectedRequest(extra=dict(url=url))
+            raise MisdirectedRequest(extra=extra)
 
         logger.info(
             "[{}] - {} - {}: {} - {}s".format(
@@ -80,9 +83,9 @@ class RESTClient(object):
                 len(getattr(response, 'content', "")), round(execution_time, 3)
             ),
             extra=dict(
-                exec_time=execution_time,
-                status_code=response.status_code,
-                dst_host=self.server
+                exec_time=execution_time, status_code=response.status_code,
+                content_lenght=len(getattr(response, 'content', "")),
+                **extra
             )
         )
         if response.status_code >= 300:
