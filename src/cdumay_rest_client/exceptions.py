@@ -24,9 +24,21 @@ class HTTPException(Exception):
         self.extra = extra if extra else dict()
         self.msgid = self.extra.pop('msgid', None)
         try:
-            self.extra['stack'] = traceback.format_exc()
+            self.extra['stack'] = self.extra.get(
+                'stack', traceback.format_exc()
+            )
         except:
             pass
+
+    @classmethod
+    def from_json(cls, content):
+        data = HTTPExceptionValidator().load(content).data
+        result = cls(
+            message=data.get('message', "Internal Server Error"),
+            extra=data.get('extra', None)
+        )
+        result.msgid = data.get('msgid', result.msgid)
+        return result
 
     def __repr__(self):
         return "%s<code=%s, message=%s>" % (
@@ -43,7 +55,7 @@ class HTTPExceptionValidator(Schema):
     """"""
     code = fields.Integer(required=True)
     message = fields.String(required=True)
-    msgid = fields.String(dump_to="msg-id")
+    msgid = fields.String(dump_to="msg-id", load_from="msg-id")
     extra = fields.Dict()
 
     @post_dump
@@ -420,14 +432,11 @@ def from_response(response, url):
         data = response.json()
         code = data.get('code', response.status_code)
         if code in HTTP_STATUS_CODES:
-            return HTTP_STATUS_CODES[code](
-                data.get('message', None), data.get('extra', data)
-            )
+            return HTTP_STATUS_CODES[code].from_json(data)
         else:
             return HTTPException(**data)
     except:
         return from_status(
-            response.status_code,
-            response.text,
+            response.status_code, response.text,
             extra=dict(url=url, response=response.text)
         )
