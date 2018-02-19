@@ -45,7 +45,7 @@ class RESTClient(object):
         return requests.request(**kwargs)
 
     def do_request(self, method, path, params=None, data=None, headers=None,
-                   timeout=None):
+                   timeout=None, parse_output=True):
         url = ''.join([self.server.rstrip('/'), path])
         if not headers:
             headers = dict()
@@ -91,8 +91,11 @@ class RESTClient(object):
         if response.status_code >= 300:
             raise from_response(response, url)
 
-        # noinspection PyBroadException
-        try:
-            return response.json()
-        except:
-            return response.text
+        if parse_output is True:
+            # noinspection PyBroadException
+            try:
+                return response.json()
+            except:
+                return response.text
+        else:
+            return response
