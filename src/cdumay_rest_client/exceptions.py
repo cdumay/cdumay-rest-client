@@ -430,6 +430,12 @@ def from_status(status, message=None, extra=None):
 def from_response(response, url):
     try:
         data = response.json()
+        if not isinstance(data, dict):
+            return from_status(
+                response.status_code, response.text,
+                extra=dict(url=url, response=response.text)
+            )
+
         code = data.get('code', response.status_code)
         if code in HTTP_STATUS_CODES:
             return HTTP_STATUS_CODES[code].from_json(data)
