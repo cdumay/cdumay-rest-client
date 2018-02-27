@@ -45,7 +45,7 @@ class RESTClient(object):
         return requests.request(**kwargs)
 
     def do_request(self, method, path, params=None, data=None, headers=None,
-                   timeout=None, parse_output=True):
+                   timeout=None, parse_output=True, stream=False):
         url = ''.join([self.server.rstrip('/'), path])
         if not headers:
             headers = dict()
@@ -64,7 +64,8 @@ class RESTClient(object):
                 auth=self.auth,
                 headers=headers,
                 timeout=timeout or self.timeout,
-                verify=self.ssl_verify
+                verify=self.ssl_verify,
+                stream=stream
             )
         except requests.exceptions.RequestException as e:
             raise InternalServerError(
