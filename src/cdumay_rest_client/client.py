@@ -11,10 +11,7 @@ import json
 
 import requests
 import requests.exceptions
-
-from cdumay_rest_client.exceptions import InternalServerError
-from cdumay_rest_client.exceptions import MisdirectedRequest
-from cdumay_rest_client.exceptions import from_response
+from cdumay_rest_client import errors
 
 logger = logging.getLogger(__name__)
 
@@ -68,7 +65,7 @@ class RESTClient(object):
                 stream=stream
             )
         except requests.exceptions.RequestException as e:
-            raise InternalServerError(
+            raise errors.InternalServerError(
                 message=getattr(e, 'message', "Internal Server Error"),
                 extra=extra
             )
@@ -76,7 +73,7 @@ class RESTClient(object):
             execution_time = time.time() - request_start_time
 
         if response is None:
-            raise MisdirectedRequest(extra=extra)
+            raise errors.MisdirectedRequest(extra=extra)
 
         logger.info(
             "[{}] - {} - {}: {} - {}s".format(
@@ -90,13 +87,13 @@ class RESTClient(object):
             )
         )
         if response.status_code >= 300:
-            raise from_response(response, url)
+            raise errors.from_response(response, url)
 
         if parse_output is True:
             # noinspection PyBroadException
             try:
                 return response.json()
-            except:
+            except Exception:
                 return response.text
         else:
             return response

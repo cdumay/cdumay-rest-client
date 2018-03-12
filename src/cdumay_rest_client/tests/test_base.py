@@ -8,7 +8,7 @@
 """
 import unittest
 from cdumay_rest_client.client import RESTClient
-from cdumay_rest_client.exceptions import NotFound
+from cdumay_rest_client.errors import NotFound
 
 
 class BaseTestCase(unittest.TestCase):
