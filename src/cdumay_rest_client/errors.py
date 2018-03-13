@@ -6,7 +6,7 @@
 
 
 """
-from cdumay_error import Error, NotImplemented, ValidationError
+from cdumay_error import Error, NotImplemented, ValidationError, NotFound
 
 
 class NotModified(Error):
@@ -39,14 +39,6 @@ class Forbidden(Error):
 
     def __init__(self, message=None, extra=None):
         Error.__init__(self, code=403, message=message, extra=extra)
-
-
-class NotFound(Error):
-    """Not Found"""
-    msgid = "HTTP-08414"
-
-    def __init__(self, message=None, extra=None):
-        Error.__init__(self, code=404, message=message, extra=extra)
 
 
 class MethodNotAllowed(Error):
