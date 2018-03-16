@@ -11,122 +11,152 @@ from cdumay_error import Error, NotImplemented, ValidationError, NotFound
 
 class NotModified(Error):
     """Not Modified"""
-    msgid = "HTTP-22313"
+    MSGID = "HTTP-22313"
 
-    def __init__(self, message=None, extra=None):
-        Error.__init__(self, code=304, message=message, extra=extra)
+    def __init__(self, message=None, extra=None, msgid=None):
+        Error.__init__(
+            self, code=304, message=message, extra=extra, msgid=msgid
+        )
 
 
 class Unauthorized(Error):
     """Unauthorized"""
-    msgid = "HTTP-28015"
+    MSGID = "HTTP-28015"
 
-    def __init__(self, message=None, extra=None):
-        Error.__init__(self, code=401, message=message, extra=extra)
+    def __init__(self, message=None, extra=None, msgid=None):
+        Error.__init__(
+            self, code=401, message=message, extra=extra, msgid=msgid
+        )
 
 
 class PaymentRequired(Error):
     """Payment Required"""
-    msgid = "HTTP-23516"
+    MSGID = "HTTP-23516"
 
-    def __init__(self, message=None, extra=None):
-        Error.__init__(self, code=402, message=message, extra=extra)
+    def __init__(self, message=None, extra=None, msgid=None):
+        Error.__init__(
+            self, code=402, message=message, extra=extra, msgid=msgid
+        )
 
 
 class Forbidden(Error):
     """Forbidden"""
-    msgid = "HTTP-29860"
+    MSGID = "HTTP-29860"
 
-    def __init__(self, message=None, extra=None):
-        Error.__init__(self, code=403, message=message, extra=extra)
+    def __init__(self, message=None, extra=None, msgid=None):
+        Error.__init__(
+            self, code=403, message=message, extra=extra, msgid=msgid
+        )
 
 
 class MethodNotAllowed(Error):
     """Method Not Allowed"""
-    msgid = "HTTP-00324"
+    MSGID = "HTTP-00324"
 
-    def __init__(self, message=None, extra=None):
-        Error.__init__(self, code=405, message=message, extra=extra)
+    def __init__(self, message=None, extra=None, msgid=None):
+        Error.__init__(
+            self, code=405, message=message, extra=extra, msgid=msgid
+        )
 
 
 class NotAcceptable(Error):
     """Not Acceptable"""
-    msgid = "HTTP-30133"
+    MSGID = "HTTP-30133"
 
-    def __init__(self, message=None, extra=None):
-        Error.__init__(self, code=406, message=message, extra=extra)
+    def __init__(self, message=None, extra=None, msgid=None):
+        Error.__init__(
+            self, code=406, message=message, extra=extra, msgid=msgid
+        )
 
 
 class ProxyAuthenticationRequired(Error):
     """Proxy Authentication Required"""
-    msgid = "HTTP-32405"
+    MSGID = "HTTP-32405"
 
-    def __init__(self, message=None, extra=None):
-        Error.__init__(self, code=407, message=message, extra=extra)
+    def __init__(self, message=None, extra=None, msgid=None):
+        Error.__init__(
+            self, code=407, message=message, extra=extra, msgid=msgid
+        )
 
 
 class RequestTimeout(Error):
     """Request Time-out"""
-    msgid = "HTTP-13821"
+    MSGID = "HTTP-13821"
 
-    def __init__(self, message=None, extra=None):
-        Error.__init__(self, code=408, message=message, extra=extra)
+    def __init__(self, message=None, extra=None, msgid=None):
+        Error.__init__(
+            self, code=408, message=message, extra=extra, msgid=msgid
+        )
 
 
 class Conflict(Error):
     """Conflict"""
-    msgid = "HTTP-21124"
+    MSGID = "HTTP-21124"
 
-    def __init__(self, message=None, extra=None):
-        Error.__init__(self, code=409, message=message, extra=extra)
+    def __init__(self, message=None, extra=None, msgid=None):
+        Error.__init__(
+            self, code=409, message=message, extra=extra, msgid=msgid
+        )
 
 
 class Gone(Error):
     """Gone"""
-    msgid = "HTTP-15611"
+    MSGID = "HTTP-15611"
 
-    def __init__(self, message=None, extra=None):
-        Error.__init__(self, code=410, message=message, extra=extra)
+    def __init__(self, message=None, extra=None, msgid=None):
+        Error.__init__(
+            self, code=410, message=message, extra=extra, msgid=msgid
+        )
 
 
 class MisdirectedRequest(Error):
     """Misdirected Request"""
-    msgid = "HTTP-24099"
+    MSGID = "HTTP-24099"
 
-    def __init__(self, message=None, extra=None):
-        Error.__init__(self, code=421, message=message, extra=extra)
+    def __init__(self, message=None, extra=None, msgid=None):
+        Error.__init__(
+            self, code=421, message=message, extra=extra, msgid=msgid
+        )
 
 
 class InternalServerError(Error):
     """Internal Server Error"""
-    msgid = "HTTP-02752"
+    MSGID = "HTTP-02752"
 
-    def __init__(self, message=None, extra=None):
-        Error.__init__(self, code=500, message=message, extra=extra)
+    def __init__(self, message=None, extra=None, msgid=None):
+        Error.__init__(
+            self, code=500, message=message, extra=extra, msgid=msgid
+        )
 
 
 class ProxyError(Error):
     """Proxy Error"""
-    msgid = "HTTP-09927"
+    MSGID = "HTTP-09927"
 
-    def __init__(self, message=None, extra=None):
-        Error.__init__(self, code=502, message=message, extra=extra)
+    def __init__(self, message=None, extra=None, msgid=None):
+        Error.__init__(
+            self, code=502, message=message, extra=extra, msgid=msgid
+        )
 
 
 class ServiceUnavailable(Error):
     """Service Unavailable"""
-    msgid = "HTTP-26820"
+    MSGID = "HTTP-26820"
 
-    def __init__(self, message=None, extra=None):
-        Error.__init__(self, code=503, message=message, extra=extra)
+    def __init__(self, message=None, extra=None, msgid=None):
+        Error.__init__(
+            self, code=503, message=message, extra=extra, msgid=msgid
+        )
 
 
 class GatewayTimeout(Error):
     """Gateway Time-out"""
-    msgid = "HTTP-04192"
+    MSGID = "HTTP-04192"
 
-    def __init__(self, message=None, extra=None):
-        Error.__init__(self, code=504, message=message, extra=extra)
+    def __init__(self, message=None, extra=None, msgid=None):
+        Error.__init__(
+            self, code=504, message=message, extra=extra, msgid=msgid
+        )
 
 
 HTTP_STATUS_CODES = {
