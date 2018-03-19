@@ -6,7 +6,8 @@
 
 
 """
-from cdumay_error import Error, NotImplemented, ValidationError, NotFound
+from cdumay_error import Error, NotImplemented, ValidationError, NotFound, \
+    ErrorSchema
 
 
 class NotModified(Error):
@@ -215,7 +216,7 @@ def from_response(response, url):
                 response.status_code, response.text,
                 extra=dict(url=url, response=response.text)
             )
-        return Error(**data)
+        return Error(**ErrorSchema().load(data))
     except Exception:
         return from_status(
             response.status_code, response.text,
