@@ -215,12 +215,7 @@ def from_response(response, url):
                 response.status_code, response.text,
                 extra=dict(url=url, response=response.text)
             )
-
-        code = data.get('code', response.status_code)
-        if code in HTTP_STATUS_CODES:
-            return HTTP_STATUS_CODES[code].from_json(data)
-        else:
-            return Error(**data)
+        return Error(**data)
     except Exception:
         return from_status(
             response.status_code, response.text,
