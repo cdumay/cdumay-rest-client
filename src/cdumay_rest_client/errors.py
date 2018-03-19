@@ -13,151 +13,91 @@ from cdumay_error import Error, NotImplemented, ValidationError, NotFound, \
 class NotModified(Error):
     """Not Modified"""
     MSGID = "HTTP-22313"
-
-    def __init__(self, message=None, extra=None, msgid=None):
-        Error.__init__(
-            self, code=304, message=message, extra=extra, msgid=msgid
-        )
+    CODE = 304
 
 
 class Unauthorized(Error):
     """Unauthorized"""
     MSGID = "HTTP-28015"
-
-    def __init__(self, message=None, extra=None, msgid=None):
-        Error.__init__(
-            self, code=401, message=message, extra=extra, msgid=msgid
-        )
+    CODE = 401
 
 
 class PaymentRequired(Error):
     """Payment Required"""
     MSGID = "HTTP-23516"
-
-    def __init__(self, message=None, extra=None, msgid=None):
-        Error.__init__(
-            self, code=402, message=message, extra=extra, msgid=msgid
-        )
+    CODE = 402
 
 
 class Forbidden(Error):
     """Forbidden"""
     MSGID = "HTTP-29860"
-
-    def __init__(self, message=None, extra=None, msgid=None):
-        Error.__init__(
-            self, code=403, message=message, extra=extra, msgid=msgid
-        )
+    CODE = 403
 
 
 class MethodNotAllowed(Error):
     """Method Not Allowed"""
     MSGID = "HTTP-00324"
-
-    def __init__(self, message=None, extra=None, msgid=None):
-        Error.__init__(
-            self, code=405, message=message, extra=extra, msgid=msgid
-        )
+    CODE = 405
 
 
 class NotAcceptable(Error):
     """Not Acceptable"""
     MSGID = "HTTP-30133"
-
-    def __init__(self, message=None, extra=None, msgid=None):
-        Error.__init__(
-            self, code=406, message=message, extra=extra, msgid=msgid
-        )
+    CODE = 406
 
 
 class ProxyAuthenticationRequired(Error):
     """Proxy Authentication Required"""
     MSGID = "HTTP-32405"
-
-    def __init__(self, message=None, extra=None, msgid=None):
-        Error.__init__(
-            self, code=407, message=message, extra=extra, msgid=msgid
-        )
+    CODE = 407
 
 
 class RequestTimeout(Error):
     """Request Time-out"""
     MSGID = "HTTP-13821"
-
-    def __init__(self, message=None, extra=None, msgid=None):
-        Error.__init__(
-            self, code=408, message=message, extra=extra, msgid=msgid
-        )
+    CODE = 408
 
 
 class Conflict(Error):
     """Conflict"""
     MSGID = "HTTP-21124"
-
-    def __init__(self, message=None, extra=None, msgid=None):
-        Error.__init__(
-            self, code=409, message=message, extra=extra, msgid=msgid
-        )
+    CODE = 409
 
 
 class Gone(Error):
     """Gone"""
     MSGID = "HTTP-15611"
-
-    def __init__(self, message=None, extra=None, msgid=None):
-        Error.__init__(
-            self, code=410, message=message, extra=extra, msgid=msgid
-        )
+    CODE = 410
 
 
 class MisdirectedRequest(Error):
     """Misdirected Request"""
     MSGID = "HTTP-24099"
-
-    def __init__(self, message=None, extra=None, msgid=None):
-        Error.__init__(
-            self, code=421, message=message, extra=extra, msgid=msgid
-        )
+    CODE = 421
 
 
 class InternalServerError(Error):
     """Internal Server Error"""
     MSGID = "HTTP-02752"
-
-    def __init__(self, message=None, extra=None, msgid=None):
-        Error.__init__(
-            self, code=500, message=message, extra=extra, msgid=msgid
-        )
+    CODE = 500
 
 
 class ProxyError(Error):
     """Proxy Error"""
     MSGID = "HTTP-09927"
-
-    def __init__(self, message=None, extra=None, msgid=None):
-        Error.__init__(
-            self, code=502, message=message, extra=extra, msgid=msgid
-        )
+    CODE = 502
 
 
 class ServiceUnavailable(Error):
     """Service Unavailable"""
     MSGID = "HTTP-26820"
-
-    def __init__(self, message=None, extra=None, msgid=None):
-        Error.__init__(
-            self, code=503, message=message, extra=extra, msgid=msgid
-        )
+    CODE = 503
 
 
 class GatewayTimeout(Error):
     """Gateway Time-out"""
     MSGID = "HTTP-04192"
-
-    def __init__(self, message=None, extra=None, msgid=None):
-        Error.__init__(
-            self, code=504, message=message, extra=extra, msgid=msgid
-        )
+    CODE = 504
 
 
 HTTP_STATUS_CODES = {
@@ -216,7 +156,12 @@ def from_response(response, url):
                 response.status_code, response.text,
                 extra=dict(url=url, response=response.text)
             )
-        return Error(**ErrorSchema().load(data))
+
+        code = data.get('code', response.status_code)
+        if code in HTTP_STATUS_CODES:
+            return HTTP_STATUS_CODES[code](**ErrorSchema().load(data))
+        else:
+            return Error(**ErrorSchema().load(data))
     except Exception:
         return from_status(
             response.status_code, response.text,
