@@ -49,7 +49,8 @@ class RESTClient(object):
         if HAS_OPENTRACING is True:
             from cdumay_rest_client.tracing import RestDriver
             with cdumay_opentracing.OpenTracingSpan(
-                    self, "call", dict(kwargs)) as span:
+                    self, "{method} - {url}".format_map(kwargs), dict(kwargs)
+            ) as span:
                 RestDriver.inject(span, kwargs['headers'])
                 return requests.request(**kwargs)
         else:
