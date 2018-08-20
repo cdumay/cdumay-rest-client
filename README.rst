@@ -1,5 +1,19 @@
+
+.. image:: https://img.shields.io/pypi/v/cdumay-rest-client.svg
+   :target: https://pypi.python.org/pypi/cdumay-rest-client/
+   :alt: Latest Version
+
 .. image:: https://travis-ci.org/cdumay/cdumay-rest-client.svg?branch=master
-    :target: https://travis-ci.org/cdumay/cdumay-rest-client
+   :target: https://travis-ci.org/cdumay/cdumay-rest-client
+   :alt: Latest version
+
+
+.. image:: https://readthedocs.org/projects/cdumay-rest-client/badge/?version=latest
+   :target: http://cdumay-rest-client.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
+
+.. image:: https://img.shields.io/badge/license-MIT-blue.svg
+    :target: https://github.com/cdumay/cdumay-rest-client/blob/master/LICENSE
 
 cdumay-rest-client
 ==================
