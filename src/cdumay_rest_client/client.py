@@ -15,14 +15,6 @@ from cdumay_rest_client import errors
 
 logger = logging.getLogger(__name__)
 
-HAS_OPENTRACING = False
-try:
-    import cdumay_opentracing
-
-    HAS_OPENTRACING = True
-except:
-    pass
-
 
 class RESTClient(object):
     """RestClient"""
@@ -46,15 +38,7 @@ class RESTClient(object):
         return 'Connection: %s' % self.server
 
     def _request_wrapper(self, **kwargs):
-        if HAS_OPENTRACING is True:
-            from cdumay_rest_client.tracing import RestDriver
-            with cdumay_opentracing.OpenTracingSpan(
-                    self, "{method} - {url}".format_map(kwargs), dict(kwargs)
-            ) as span:
-                RestDriver.inject(span, kwargs['headers'])
-                return requests.request(**kwargs)
-        else:
-            return requests.request(**kwargs)
+        return requests.request(**kwargs)
 
     def do_request(self, method, path, params=None, data=None, headers=None,
                    timeout=None, parse_output=True, stream=False):
