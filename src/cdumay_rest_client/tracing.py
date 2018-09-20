@@ -8,18 +8,17 @@
 """
 import opentracing
 import requests
-
-from cdumay_opentracing import OpenTracingManager, SpanProxy
+from cdumay_opentracing import Span
 from cdumay_rest_client.client import RESTClient
 
 
-class RequestSpan(SpanProxy):
+class RESTClientRequestSpan(Span):
     FORMAT = opentracing.Format.HTTP_HEADERS
     TAGS = ['url', 'method']
 
     @classmethod
     def name(cls, obj):
-        return " ".join((obj.method, obj.path))
+        return "{method} {url}".format_map(obj)
 
     @classmethod
     def extract(cls, obj):
@@ -29,7 +28,7 @@ class RequestSpan(SpanProxy):
         :return: a SpanContext instance extracted from the inner span object or None if no
             such span context could be found.
         """
-        return opentracing.tracer.extract(cls.FORMAT, obj.headers)
+        return opentracing.tracer.extract(cls.FORMAT, obj['headers'])
 
     @classmethod
     def inject(cls, span, obj):
@@ -38,10 +37,10 @@ class RequestSpan(SpanProxy):
         :param opentracing.span.SpanContext span: the SpanContext instance
         :param Any obj: Object to use as context
         """
-        opentracing.tracer.inject(span, cls.FORMAT, obj.headers)
+        opentracing.tracer.inject(span, cls.FORMAT, obj['headers'])
 
     @classmethod
-    def postrun(cls, span, obj, **kwargs):
+    def _postrun(cls, span, obj, **kwargs):
         """ Trigger to execute just before closing the span
 
         :param opentracing.span.Span  span: the SpanContext instance
@@ -53,14 +52,20 @@ class RequestSpan(SpanProxy):
             "response.content_lenght", len(getattr(obj, 'content', ""))
         )
 
+    @classmethod
+    def extract_tags(cls, obj):
+        """ Extract tags from the given object
+
+        :param Any obj: Object to use as context
+        :return: Tags to add on span
+        :rtype: dict
+        """
+        return dict([(attr, obj.get(attr, None)) for attr in cls.TAGS])
+
 
 class OpentracingRESTClient(RESTClient):
     def _request_wrapper(self, **kwargs):
-        with OpenTracingManager.create_span(
-                obj=None, name="{method} {url}".format_map(kwargs),
-                context=OpenTracingManager.get_current_span(self)
-        ) as span_proxy:
-            span_proxy.inject(span_proxy.span, kwargs['headers'])
-            resp = requests.request(**kwargs)
-            RequestSpan.postrun(span_proxy.span, resp)
-            return resp
+        with opentracing.tracer.start_span(
+                obj=kwargs, span_factory=RESTClientRequestSpan) as span:
+            span.obj = requests.request(**kwargs)
+            return span.obj
