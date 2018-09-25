@@ -60,12 +60,16 @@ class RESTClientRequestSpan(Span):
         :return: Tags to add on span
         :rtype: dict
         """
-        return dict([(attr, obj.get(attr, None)) for attr in cls.TAGS])
+        return dict(
+            [("request.{}".format(attr), obj.get(attr, None)) for attr in
+             cls.TAGS]
+        )
 
 
 class OpentracingRESTClient(RESTClient):
     def _request_wrapper(self, **kwargs):
         with opentracing.tracer.start_span(
                 obj=kwargs, span_factory=RESTClientRequestSpan) as span:
+            RESTClientRequestSpan.inject(span, kwargs)
             span.obj = requests.request(**kwargs)
             return span.obj

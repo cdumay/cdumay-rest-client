@@ -26,6 +26,6 @@ setup(
     package_dir={'': 'src'},
     test_suite="cdumay_rest_client.tests",
     extras_require={
-        'opentracing': ['cdumay-opentracing>=0.1.3']
+        'opentracing': ['cdumay-opentracing>=0.1.8']
     }
 )
