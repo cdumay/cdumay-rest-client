@@ -65,7 +65,7 @@ to serialize exceptions:
 
     import json, sys
     from cdumay_rest_client.client import RESTClient
-    from cdumay_rest_client.exceptions import HTTPException, HTTPExceptionValidator
+    from cdumay_http_client.exceptions import HTTPException, HTTPExceptionValidator
 
     try:
         client = RESTClient(server="http://jsonplaceholder.typicode.com")
@@ -88,4 +88,4 @@ Result:
 License
 -------
 
-Apache License 2.0
+Licensed under `Apache License 2.0 <./LICENSE>`_ or https://opensource.org/licenses/Apache-2.0.
