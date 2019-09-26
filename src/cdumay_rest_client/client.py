@@ -29,3 +29,7 @@ class RESTClient(HttpClient):
 
     def _format_data(self, data):
         return json.dumps(data) if data else None
+
+    # noinspection PyMethodMayBeStatic
+    def _parse_response(self, response):
+        return response.json()
