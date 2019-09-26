@@ -26,7 +26,7 @@ Quickstart
 First, install cdumay-rest-client using 
 `pip <https://pip.pypa.io/en/stable/>`_:
 
-    $ pip install flask-zookeeper
+    $ pip install cdumay-rest-client
 
 Next, add a `RESTClient` instance to your code:
 
