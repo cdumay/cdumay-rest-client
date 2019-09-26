@@ -5,95 +5,27 @@
 .. codeauthor:: Cédric Dumay <cedric.dumay@gmail.com>
 
 """
-import time
-import logging
 import json
-
-import requests
-import requests.exceptions
-from cdumay_rest_client import errors
+import logging
+from cdumay_http_client.client import HttpClient
 
 logger = logging.getLogger(__name__)
 
 
-class RESTClient(object):
+class RESTClient(HttpClient):
     """RestClient"""
 
-    def __init__(
-            self, server, timeout=10, headers=None, username=None,
-            password=None, ssl_verify=True):
-        self.server = server
-        self.timeout = timeout
-        self.headers = {
+    def __init__(self, server, timeout=10, headers=None, username=None,
+                 password=None, ssl_verify=True):
+        _headers = headers or dict()
+        _headers.update({
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-        }
-        if headers:
-            self.headers.update(headers)
+        })
 
-        self.auth = (username, password) if username and password else None
-        self.ssl_verify = ssl_verify
-
-    def __repr__(self):
-        return 'Connection: %s' % self.server
-
-    def _request_wrapper(self, **kwargs):
-        return requests.request(**kwargs)
-
-    def do_request(self, method, path, params=None, data=None, headers=None,
-                   timeout=None, parse_output=True, stream=False):
-        url = ''.join([self.server.rstrip('/'), path])
-        if not headers:
-            headers = dict()
-        headers.update(self.headers)
-
-        logger.debug("[{}] - {}".format(method, url))
-        request_start_time = time.time()
-
-        extra = dict(url=url, server=self.server, method=method)
-
-        try:
-            response = self._request_wrapper(
-                method=method,
-                url=url,
-                params=params,
-                data=json.dumps(data) if data else None,
-                auth=self.auth,
-                headers=headers,
-                timeout=timeout or self.timeout,
-                verify=self.ssl_verify,
-                stream=stream
-            )
-        except requests.exceptions.RequestException as e:
-            raise errors.InternalServerError(
-                message=getattr(e, 'message', "Internal Server Error"),
-                extra=extra
-            )
-        finally:
-            execution_time = time.time() - request_start_time
-
-        if response is None:
-            raise errors.MisdirectedRequest(extra=extra)
-
-        logger.info(
-            "[{}] - {} - {}: {} - {}s".format(
-                method, url, response.status_code,
-                len(getattr(response, 'content', "")), round(execution_time, 3)
-            ),
-            extra=dict(
-                exec_time=execution_time, status_code=response.status_code,
-                content_lenght=len(getattr(response, 'content', "")),
-                **extra
-            )
+        HttpClient.__init__(
+            self, server, timeout, headers, username, password, ssl_verify
         )
-        if response.status_code >= 300:
-            raise errors.from_response(response, url)
 
-        if parse_output is True:
-            # noinspection PyBroadException
-            try:
-                return response.json()
-            except Exception:
-                return response.text
-        else:
-            return response
+    def _format_data(self, data):
+        return json.dumps(data) if data else None

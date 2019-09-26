@@ -1,3 +1,1 @@
-requests[security]
-ndg-httpsclient
-cdumay-error>=0.1
+cdumay-http-client
