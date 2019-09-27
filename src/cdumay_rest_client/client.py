@@ -22,9 +22,8 @@ class RESTClient(HttpClient):
             'Content-Type': 'application/json',
             'Accept': 'application/json',
         })
-
         HttpClient.__init__(
-            self, server, timeout, headers, username, password, ssl_verify
+            self, server, timeout, _headers, username, password, ssl_verify
         )
 
     def _format_data(self, data):
