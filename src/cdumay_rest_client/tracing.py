@@ -13,6 +13,7 @@ from cdumay_rest_client.client import RESTClient
 
 
 class OpentracingRestClient(RESTClient):
+    """Opentracing Span wrapper"""
     def _request_wrapper(self, **kwargs):
         with opentracing.tracer.start_span(
                 obj=kwargs, span_factory=RequestSpan) as span:
