@@ -16,9 +16,9 @@ logger = logging.getLogger(__name__)
 class RESTClient(HttpClient):
     """RestClient"""
 
-    def __init__(self, server, timeout=10, headers=None, username=None,
-                 password=None, ssl_verify=True, retry_number=10,
-                 retry_delay=30):
+    def __init__(self, server, timeout=None, headers=None, username=None,
+                 password=None, ssl_verify=True, retry_number=None,
+                 retry_delay=None):
         _headers = headers or dict()
         _headers.update({
             'Content-Type': 'application/json',
