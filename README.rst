@@ -7,13 +7,24 @@
    :target: https://travis-ci.org/cdumay/cdumay-rest-client
    :alt: Latest version
 
-
 .. image:: https://readthedocs.org/projects/cdumay-rest-client/badge/?version=latest
    :target: http://cdumay-rest-client.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
 
-.. image:: https://img.shields.io/badge/license-Apache%202.0-blue.svg
+.. image:: https://img.shields.io/badge/license-BSD3-blue.svg
     :target: https://github.com/cdumay/cdumay-rest-client/blob/master/LICENSE
+
+.. image:: https://github.com/cdumay/cdumay-rest-client/blob/reports/junit/tests-badge.svg?raw=true
+   :target: https://htmlpreview.github.io/?https://github.com/cdumay/cdumay-rest-client/blob/reports/junit/report.html
+   :alt: Tests
+
+.. image:: https://github.com/cdumay/cdumay-rest-client/blob/reports/flake8/flake8-badge.svg?raw=true
+   :target: https://htmlpreview.github.io/?https://github.com/cdumay/cdumay-rest-client/blob/reports/flake8/index.html
+   :alt: Lint
+
+.. image:: https://github.com/cdumay/cdumay-rest-client/blob/reports/coverage/coverage-badge.svg?raw=true
+   :target: https://htmlpreview.github.io/?https://github.com/cdumay/cdumay-rest-client/blob/reports/coverage/html/index.html
+   :alt: Coverage badge
 
 cdumay-rest-client
 ==================
@@ -88,4 +99,4 @@ Result:
 License
 -------
 
-Licensed under `Apache License 2.0 <./LICENSE>`_ or https://opensource.org/licenses/Apache-2.0.
+Licensed under `BSD 3-Clause License <./LICENSE>`_ or https://opensource.org/licenses/BSD-3-Clause.

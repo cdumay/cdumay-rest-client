@@ -18,14 +18,20 @@ setup(
     author='Cedric DUMAY',
     author_email='cedric.dumay@gmail.com',
     url='https://github.com/cdumay/cdumay-rest-client',
-    license='Apache License',
+    license='BSD 3-Clause',
     include_package_data=True,
     zip_safe=True,
     install_requires=open('requirements.txt', 'r').readlines(),
     packages=find_packages('src'),
     package_dir={'': 'src'},
-    test_suite="cdumay_rest_client.tests",
     extras_require={
-        'opentracing': ['cdumay-opentracing>=0.1.8']
+        'opentracing': ['cdumay-opentracing>=0.1.8'],
+        "tests": [
+            "flake8",
+            "flake8-html",
+            "pytest",
+            "pytest-cov",
+            "pytest-html",
+        ]
     }
 )
